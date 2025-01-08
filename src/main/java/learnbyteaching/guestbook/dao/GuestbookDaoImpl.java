@@ -91,16 +91,17 @@ public class GuestbookDaoImpl
 		return 1 == insertedCount;
 	}
 	@Override
-	public boolean delete(Integer no) {
+	public boolean delete(Integer no, String password) {
 		int deletedCount = 0;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			conn = getConnection();
-			String sql = "DELETE FROM guestbook WHERE no=?";
+			String sql = "DELETE FROM guestbook WHERE no=? AND password=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
+			pstmt.setString(2, password);
 			deletedCount = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
